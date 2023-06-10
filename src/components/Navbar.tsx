@@ -14,6 +14,8 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import LoginModal from './Login'
+import { SignInButton } from './buttons'
+import AuthCheck from './AuthCheck'
 
 const pages = ['Products', 'Pricing', 'Blog']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -89,11 +91,16 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {/* mov */}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <AuthCheck />
+              </MenuItem>
+
+              {/* {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -116,17 +123,9 @@ function ResponsiveAppBar() {
             LOGOs
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <React.Fragment key={page}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-                <LoginModal />
-              </React.Fragment>
-            ))}
+            <MenuItem onClick={handleCloseNavMenu}>
+              <AuthCheck />
+            </MenuItem>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
