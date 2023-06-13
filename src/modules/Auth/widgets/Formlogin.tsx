@@ -4,8 +4,7 @@ import { signIn } from 'next-auth/react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import Button from '@mui/material/Button'
-import LoginIcon from '@mui/icons-material/Login'
-import { Box, Grid, InputLabel, TextField, Typography } from '@mui/material'
+import { Divider, InputLabel, TextField } from '@mui/material'
 import styles from '../styles/formlogin.module.css'
 
 export const LoginForm = () => {
@@ -34,8 +33,6 @@ export const LoginForm = () => {
       })
 
       setLoading(false)
-
-      console.log(res)
       if (!res?.error) {
         router.push(callbackUrl)
       } else {
@@ -49,7 +46,6 @@ export const LoginForm = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
-    console.log(value)
     setFormValues({ ...formValues, [name]: value })
   }
 
@@ -59,80 +55,52 @@ export const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      {error && (
-        <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
-      )}
-      {/* <div className="mb-6">
-          <input
-            required
-            type="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-            placeholder="Correo"
-          />
-        </div> */}
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={1}
+    <form onSubmit={onSubmit} className={styles.formLogin}>
+      {error && <p>{error}</p>}
+      <InputLabel htmlFor="correo">Correo</InputLabel>
+      <TextField
+        id="correo"
+        value={formValues.email}
+        type={'text'}
+        fullWidth
+        placeholder="Introduzca su correo"
+        onChange={handleChange}
+        label="Introduzca su correo"
+        className={styles.inputsText}
+      />
+      <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+      <TextField
+        id="contraseña"
+        value={formValues.password}
+        type={'password'}
+        fullWidth
+        placeholder="Introduzca su contraseña"
+        label="Introduzca su contraseña"
+        onChange={handleChange}
+        className={styles.inputsText}
+      />
+      <Button
+        variant="contained"
+        className={styles.button}
+        // endIcon={<LoginIcon />}
       >
-        <Grid item xs={12}>
-          <InputLabel htmlFor="correo">Correo</InputLabel>
-
-          <TextField
-            id="correo"
-            value={formValues.email}
-            type={'text'}
-            placeholder="Introduzca su correo"
-            onChange={handleChange}
-            label="Introduzca su correo"
-            className={styles.inputsText}
+        Iniciar Sesión
+      </Button>
+      <Divider />
+      <Button
+        variant="outlined"
+        onClick={handleSignInGmail}
+        role="button"
+        className={`${styles.button} ${styles.googleButton}`}
+        startIcon={
+          <img
+            className={styles.googleIcon}
+            src="img/assets/icons/google.svg"
           />
-        </Grid>
-        {/* <div className="mb-6">
-          <input
-            required
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-            placeholder="Contraseña"
-          />
-        </div> */}
-        <Grid item xs={12}>
-          <Box display="flex" justifyContent="flex-start ">
-            <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
-          </Box>
-          <TextField
-            id="contraseña"
-            value={formValues.password}
-            type={'password'}
-            placeholder="Introduzca su contraseña"
-            label="Introduzca su contraseña"
-            onChange={handleChange}
-            className={styles.inputsText}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" endIcon={<LoginIcon />}>
-            Iniciar Sesión
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: '#da4747' }}
-            onClick={handleSignInGmail}
-            role="button"
-          >
-            Iniciar Sesión con Gmail
-          </Button>
-        </Grid>
-      </Grid>
+        }
+      >
+        Iniciar Sesión con Gmail
+      </Button>
     </form>
   )
 }

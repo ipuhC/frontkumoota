@@ -1,10 +1,31 @@
-.contenedor {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 4rem);
+.formLogin {
+  width: 25rem;
 }
 
 .inputsText {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.googleIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.button {
+  text-transform: none;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  height: 2.5rem;
+}
+
+.googleButton {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
