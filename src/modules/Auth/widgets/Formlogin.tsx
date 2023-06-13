@@ -6,7 +6,8 @@ import { ChangeEvent, useState } from 'react'
 import Button from '@mui/material/Button'
 import LoginIcon from '@mui/icons-material/Login'
 import { Box, Grid, InputLabel, TextField, Typography } from '@mui/material'
-import styles from './Formlogin.module.css'
+import styles from '../styles/formlogin.module.css'
+
 export const LoginForm = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -78,7 +79,6 @@ export const LoginForm = () => {
         justifyContent="center"
         alignItems="center"
         spacing={1}
-        className={styles.contenedor}
       >
         <Grid item xs={12}>
           <InputLabel htmlFor="correo">Correo</InputLabel>
