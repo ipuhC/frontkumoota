@@ -8,15 +8,16 @@ import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { useSession, signOut, signIn } from 'next-auth/react'
-import { Button } from '@mui/material'
+import Link from 'next/link'
+import { SERVER_URLS } from 'config/serverUrls'
+
+const { URL_LOGIN } = SERVER_URLS
 
 function MyAccount() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   )
   const { data: session, status } = useSession()
-
-  console.log(session, status, 'epa')
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -68,9 +69,7 @@ function MyAccount() {
           </Menu>
         </Box>
       ) : (
-        <Button color="inherit" onClick={handleSignIn}>
-          Iniciar sesión
-        </Button>
+        <Link href={URL_LOGIN}>Iniciar sesión</Link>
       )}
     </>
   )

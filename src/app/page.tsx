@@ -1,7 +1,7 @@
 'use client'
-import Image from 'next/image'
-import styles from './page.module.css'
-import LoginModal from '../components/Login'
+
+import Container from 'modules/Layout/widgets/Container'
+
 export default function Home() {
-  return <main className={styles.main}></main>
+  return <Container>Kumoota</Container>
 }
