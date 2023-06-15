@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import MenuItem from '@mui/material/MenuItem'
 import MyAccount from './MyAccount'
+import Link from 'next/link'
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -41,7 +42,9 @@ function Navbar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-          ></Typography>
+          >
+            Kumoota
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -75,6 +78,9 @@ function Navbar() {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Mi perfil</Typography>
               </MenuItem>
+              <MenuItem>
+                <MyAccount />
+              </MenuItem>
             </Menu>
           </Box>
           {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -96,11 +102,20 @@ function Navbar() {
           >
             Kumoota
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <MenuItem onClick={handleCloseNavMenu}></MenuItem>
-          </Box>
 
-          <MyAccount />
+          {/* barra central md  */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+
+              justifyContent: 'flex-end',
+            }}
+          >
+            <MenuItem>
+              <MyAccount />
+            </MenuItem>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

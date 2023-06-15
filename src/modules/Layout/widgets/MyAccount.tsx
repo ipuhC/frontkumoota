@@ -69,7 +69,29 @@ function MyAccount() {
           </Menu>
         </Box>
       ) : (
-        <Link href={URL_LOGIN}>Iniciar sesión</Link>
+        <>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'flex-end',
+              gap: '20px',
+            }}
+          >
+            <Link href={URL_LOGIN}>Iniciar sesión</Link>
+            <Link href="/register">Registrarse</Link>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              justifyContent: 'flex-end',
+              gap: '20px',
+              flexDirection: 'column',
+            }}
+          >
+            <Link href={URL_LOGIN}>Iniciar sesión</Link>
+            <Link href="/register">Registrarse</Link>
+          </Box>
+        </>
       )}
     </>
   )

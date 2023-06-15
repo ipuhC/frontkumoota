@@ -7,82 +7,63 @@ import Button from '@mui/material/Button'
 import { Divider, InputLabel, TextField } from '@mui/material'
 import styles from '../styles/formlogin.module.css'
 
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+
 export const LoginForm = () => {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
-  })
-  const [error, setError] = useState('')
-
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/profile'
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      setLoading(true)
-      setFormValues({ email: '', password: '' })
-
-      const res = await signIn('credentials', {
-        redirect: false,
-        email: formValues.email,
-        password: formValues.password,
-        callbackUrl,
-      })
-
-      setLoading(false)
-      if (!res?.error) {
-        router.push(callbackUrl)
-      } else {
-        setError('invalid email or password')
-      }
-    } catch (error: any) {
-      setLoading(false)
-      setError(error)
-    }
-  }
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target
-    setFormValues({ ...formValues, [name]: value })
-  }
-
   const handleSignInGmail = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     signIn('google')
   }
+  // let userSchema = yup.object({
+  //   name: yup.string().required(),
+
+  //   email: yup.string().email(),
+
+  // });
+
+  // formulario
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    // validationSchema: userSchema,
+    onSubmit: (values) => {
+      // alert('pepep')
+      alert(JSON.stringify(values, null, 2))
+    },
+  })
 
   return (
-    <form onSubmit={onSubmit} className={styles.formLogin}>
-      {error && <p>{error}</p>}
-      <InputLabel htmlFor="correo">Correo</InputLabel>
+    <form onSubmit={formik.handleSubmit} className={styles.formLogin}>
+      <InputLabel htmlFor="email">Correo</InputLabel>
       <TextField
-        id="correo"
-        value={formValues.email}
+        id="email"
+        value={formik.values.email}
         type={'text'}
         fullWidth
         placeholder="Introduzca su correo"
-        onChange={handleChange}
         label="Introduzca su correo"
         className={styles.inputsText}
+        onChange={formik.handleChange}
       />
-      <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+      <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
-        id="contraseña"
-        value={formValues.password}
+        id="password"
+        value={formik.values.password}
         type={'password'}
         fullWidth
         placeholder="Introduzca su contraseña"
         label="Introduzca su contraseña"
-        onChange={handleChange}
         className={styles.inputsText}
+        onChange={formik.handleChange}
       />
       <Button
         variant="contained"
         className={styles.button}
         // endIcon={<LoginIcon />}
+        type="submit"
       >
         Iniciar Sesión
       </Button>
