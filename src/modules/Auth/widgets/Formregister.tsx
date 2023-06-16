@@ -22,52 +22,52 @@ export const RegisterForm = () => {
 
   // });
 
-  // formulario
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: '',
-  //     password: '',
-  //   },
-  //   // validationSchema: userSchema,
-  //   onSubmit: (values) => {
-  //     // alert('pepep')
-  //     alert(JSON.stringify(values, null, 2))
-  //   },
-  // })
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
+    },
+    // validationSchema: userSchema,
+    onSubmit: (values) => {
+      // alert('pepep')
+      alert(JSON.stringify(values, null, 2))
+    },
+  })
 
   return (
-    // <form onSubmit={formik.handleSubmit} className={styles.formLogin}>
-    <form className={styles.formLogin}>
+    <form onSubmit={formik.handleSubmit} className={styles.formLogin}>
       <InputLabel htmlFor="email">Nombre</InputLabel>
       <TextField
-        id="email"
-        // value={formik.values.email}
+        id="name"
+        value={formik.values.name}
         type={'text'}
         fullWidth
-        placeholder="Introduzca su correo"
-        label="Introduzca su correo"
+        placeholder="Introduzca su nombre"
+        // label="Introduzca su nombre"
         className={styles.inputsText}
-        // onChange={formik.handleChange}
+        onChange={formik.handleChange}
       />
       <InputLabel htmlFor="password">Correo</InputLabel>
       <TextField
         id="email"
-        // value={formik.values.email}
+        value={formik.values.email}
         type={'text'}
         fullWidth
         placeholder="Introduzca su correo"
-        label="Introduzca su correo"
+        // label="Introduzca su correo"
         className={styles.inputsText}
-        // onChange={formik.handleChange}
+        onChange={formik.handleChange}
       />
       <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
         id="password"
-        // value={formik.values.password}
+        value={formik.values.password}
         type={'password'}
         fullWidth
         placeholder="Introduzca su contraseña"
-        label="Introduzca su contraseña"
+        // label="Introduzca su contraseña"
         className={styles.inputsText}
         // onChange={formik.handleChange}
       />
@@ -75,14 +75,14 @@ export const RegisterForm = () => {
         Introduzca nuevamente su contraseña
       </InputLabel>
       <TextField
-        id="password"
-        // value={formik.values.password}
+        id="password_confirmation"
+        value={formik.values.password_confirmation}
         type={'password'}
         fullWidth
-        placeholder="Introduzca su contraseña"
-        label="Introduzca su contraseña"
+        placeholder="Introduzca nuevamente su contraseña"
+        // label="Introduzca nuevamente su contraseña"
         className={styles.inputsText}
-        // onChange={formik.handleChange}
+        onChange={formik.handleChange}
       />
       <Button
         variant="contained"
@@ -90,7 +90,7 @@ export const RegisterForm = () => {
         // endIcon={<LoginIcon />}
         type="submit"
       >
-        Iniciar Sesión
+        Registrarse
       </Button>
     </form>
   )

@@ -8,27 +8,37 @@ import { Divider, InputLabel, TextField } from '@mui/material'
 import styles from '../styles/formlogin.module.css'
 
 import { useFormik } from 'formik'
-import * as yup from 'yup'
+import * as Yup from 'yup'
 
 export const LoginForm = () => {
   const handleSignInGmail = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     signIn('google')
   }
-  // let userSchema = yup.object({
-  //   name: yup.string().required(),
-
-  //   email: yup.string().email(),
-
-  // });
-
+  const validateSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Please enter a valid email')
+      .required('This field is required'),
+    password: Yup.string()
+      .required('This field is required')
+      .min(8, 'Pasword must be 8 or more characters')
+      .matches(
+        /(?=.*[a-z])(?=.*[A-Z])\w+/,
+        'Password ahould contain at least one uppercase and lowercase character',
+      )
+      .matches(/\d/, 'Password should contain at least one number')
+      .matches(
+        /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/,
+        'Password should contain at least one special character',
+      ),
+  })
   // formulario
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    // validationSchema: userSchema,
+    validationSchema: validateSchema,
     onSubmit: (values) => {
       // alert('pepep')
       alert(JSON.stringify(values, null, 2))
