@@ -69,6 +69,9 @@ export const LoginForm = () => {
         className={styles.inputsText}
         onChange={formik.handleChange}
       />
+      <a href="#" className={styles.passwordLink}>
+        Recuperar Contraseña
+      </a>
       <Button
         variant="contained"
         className={styles.button}
