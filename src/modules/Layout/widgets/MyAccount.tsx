@@ -66,6 +66,7 @@ function MyAccount() {
             <MenuItem onClick={() => signOut()}>
               <Typography textAlign="center">Cerrar sesión</Typography>
             </MenuItem>
+            <MenuItem>{session.user.name}</MenuItem>
           </Menu>
         </Box>
       ) : (

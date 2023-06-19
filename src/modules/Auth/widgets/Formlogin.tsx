@@ -11,6 +11,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 export const LoginForm = () => {
+  const router = useRouter()
   const handleSignInGmail = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     signIn('google')
@@ -38,10 +39,21 @@ export const LoginForm = () => {
       email: '',
       password: '',
     },
-    validationSchema: validateSchema,
-    onSubmit: (values) => {
+    // validationSchema: validateSchema,
+    onSubmit: async (values) => {
       // alert('pepep')
-      alert(JSON.stringify(values, null, 2))
+      const email = values.email
+      const password = values.password
+      const res = await signIn('credentials', {
+        email,
+        password,
+        // The page where I want to redirect to after a
+        // successful login
+        callbackUrl: `/`,
+      })
+
+      if (res.url) router.push(res.url)
+      // alert(JSON.stringify(values, null, 2))
     },
   })
 
