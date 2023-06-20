@@ -9,39 +9,77 @@ import styles from '../styles/formlogin.module.css'
 
 import { useFormik } from 'formik'
 import * as yup from 'yup'
+import axios from 'axios'
 
 export const RegisterForm = () => {
-  // const handleSignInGmail = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault()
-  //   signIn('google')
-  // }
-  // let userSchema = yup.object({
-  //   name: yup.string().required(),
-
-  //   email: yup.string().email(),
-
-  // });
+  const router = useRouter()
 
   const formik = useFormik({
     initialValues: {
+      firstname: '',
+      lastname: '',
       name: '',
       email: '',
       password: '',
       password_confirmation: '',
     },
     // validationSchema: userSchema,
-    onSubmit: (values) => {
-      // alert('pepep')
-      alert(JSON.stringify(values, null, 2))
+    // onSubmit: (values) => {
+    //   // alert('pepep')
+    //   alert(JSON.stringify(values, null, 2))
+    // },
+    onSubmit: async (values) => {
+      try {
+        alert(JSON.stringify(values, null, 2))
+        const response = await axios.post(
+          'http://127.0.0.1:8000/api/register',
+          {
+            name: values.name,
+            email: values.email,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            password: values.password,
+            password_confirmation: values.password_confirmation,
+          },
+        )
+        alert('correcto')
+        router.push('/')
+      } catch (err) {
+        // Handle Error Here
+        alert('incorrecto')
+        console.error(err)
+      }
     },
   })
 
   return (
     <form onSubmit={formik.handleSubmit} className={styles.formLogin}>
-      <InputLabel htmlFor="email">Nombre</InputLabel>
+      <InputLabel htmlFor="email">Nombre de usuario</InputLabel>
       <TextField
         id="name"
         value={formik.values.name}
+        type={'text'}
+        fullWidth
+        placeholder="Introduzca su nombre"
+        // label="Introduzca su nombre"
+        className={styles.inputsText}
+        onChange={formik.handleChange}
+      />
+      <InputLabel htmlFor="email">Primer nombre</InputLabel>
+      <TextField
+        id="firstname"
+        value={formik.values.firstname}
+        type={'text'}
+        fullWidth
+        placeholder="Introduzca su nombre"
+        // label="Introduzca su nombre"
+        className={styles.inputsText}
+        onChange={formik.handleChange}
+      />
+      <InputLabel htmlFor="email">Apellido</InputLabel>
+      <TextField
+        id="lastname"
+        value={formik.values.lastname}
         type={'text'}
         fullWidth
         placeholder="Introduzca su nombre"
@@ -69,7 +107,7 @@ export const RegisterForm = () => {
         placeholder="Introduzca su contraseña"
         // label="Introduzca su contraseña"
         className={styles.inputsText}
-        // onChange={formik.handleChange}
+        onChange={formik.handleChange}
       />
       <InputLabel htmlFor="password">
         Introduzca nuevamente su contraseña

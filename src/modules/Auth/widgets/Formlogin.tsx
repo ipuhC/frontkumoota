@@ -78,7 +78,7 @@ export const LoginForm = () => {
         type={'text'}
         fullWidth
         placeholder="Introduzca su correo"
-        label="Introduzca su correo"
+        // label="Introduzca su correo"
         className={styles.inputsText}
         onChange={formik.handleChange}
       />
@@ -89,7 +89,7 @@ export const LoginForm = () => {
         type={'password'}
         fullWidth
         placeholder="Introduzca su contraseña"
-        label="Introduzca su contraseña"
+        // label="Introduzca su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
       />
