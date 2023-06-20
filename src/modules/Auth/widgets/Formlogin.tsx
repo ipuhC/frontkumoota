@@ -19,20 +19,20 @@ export const LoginForm = () => {
   }
   const validateSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Please enter a valid email')
-      .required('This field is required'),
+      .email('Introduzca un email válido')
+      .required('Este campo es requerido'),
     password: Yup.string()
-      .required('This field is required')
-      .min(8, 'Pasword must be 8 or more characters')
-      .matches(
-        /(?=.*[a-z])(?=.*[A-Z])\w+/,
-        'Password ahould contain at least one uppercase and lowercase character',
-      )
-      .matches(/\d/, 'Password should contain at least one number')
-      .matches(
-        /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/,
-        'Password should contain at least one special character',
-      ),
+      .required('Este campo es requerido')
+      .min(8, 'La contraseña debe contener mas de 4 caracteres'),
+    // .matches(
+    //   /(?=.*[a-z])(?=.*[A-Z])\w+/,
+    //   'Password ahould contain at least one uppercase and lowercase character',
+    // )
+    // .matches(/\d/, 'Password should contain at least one number')
+    // .matches(
+    //   /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/,
+    //   'Password should contain at least one special character',
+    // ),
   })
   // formulario
   const formik = useFormik({
@@ -40,7 +40,7 @@ export const LoginForm = () => {
       email: '',
       password: '',
     },
-    // validationSchema: validateSchema,
+    validationSchema: validateSchema,
     onSubmit: async (values, { setSubmitting }) => {
       console.log('error')
       const email = values.email
@@ -81,6 +81,8 @@ export const LoginForm = () => {
         // label="Introduzca su correo"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
       />
       <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
@@ -92,6 +94,8 @@ export const LoginForm = () => {
         // label="Introduzca su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
       />
       <a href="#" className={styles.passwordLink}>
         Recuperar Contraseña

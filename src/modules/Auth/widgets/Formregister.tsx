@@ -8,11 +8,30 @@ import { Divider, InputLabel, TextField } from '@mui/material'
 import styles from '../styles/formlogin.module.css'
 
 import { useFormik } from 'formik'
-import * as yup from 'yup'
+import * as Yup from 'yup'
 import axios from 'axios'
+import Email from 'next-auth/providers/email'
 
 export const RegisterForm = () => {
   const router = useRouter()
+  const registerSchema = Yup.object().shape({
+    name: Yup.string().required('Este campo es requerido'),
+
+    firstname: Yup.string().required('Este campo es requerido'),
+
+    lastname: Yup.string().required('Este campo es requerido'),
+
+    email: Yup.string()
+      .email('Introduzca un email válido')
+      .required('Este campo es requerido'),
+    password: Yup.string()
+      .required('Este campo es requerido')
+      .min(8, 'La contraseña debe contener mas de 4 caracteres'),
+    password_confirmation: Yup.string().oneOf(
+      [Yup.ref('password'), null],
+      'La contraseñas deben coincidir',
+    ),
+  })
 
   const formik = useFormik({
     initialValues: {
@@ -23,14 +42,14 @@ export const RegisterForm = () => {
       password: '',
       password_confirmation: '',
     },
-    // validationSchema: userSchema,
+    validationSchema: registerSchema,
     // onSubmit: (values) => {
     //   // alert('pepep')
     //   alert(JSON.stringify(values, null, 2))
     // },
     onSubmit: async (values) => {
       try {
-        alert(JSON.stringify(values, null, 2))
+        // alert(JSON.stringify(values, null, 2))
         const response = await axios.post(
           'http://127.0.0.1:8000/api/register',
           {
@@ -42,7 +61,25 @@ export const RegisterForm = () => {
             password_confirmation: values.password_confirmation,
           },
         )
-        alert('correcto')
+        console.log('esta en el registro', response)
+        // alert('correcto')
+        const email = values.email
+        const password = values.password
+        const res = await signIn('credentials', {
+          email,
+          password,
+          // The page where I want to redirect to after a
+          // successful login
+          callbackUrl: `/`,
+          redirect: false,
+        })
+        console.log('intento el login', response)
+
+        if (res?.error) {
+          console.log(response)
+          alert('error')
+          console.log('error')
+        }
         router.push('/')
       } catch (err) {
         // Handle Error Here
@@ -64,6 +101,8 @@ export const RegisterForm = () => {
         // label="Introduzca su nombre"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.name && Boolean(formik.errors.name)}
+        helperText={formik.touched.name && formik.errors.name}
       />
       <InputLabel htmlFor="email">Primer nombre</InputLabel>
       <TextField
@@ -75,6 +114,8 @@ export const RegisterForm = () => {
         // label="Introduzca su nombre"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.firstname && Boolean(formik.errors.firstname)}
+        helperText={formik.touched.firstname && formik.errors.firstname}
       />
       <InputLabel htmlFor="email">Apellido</InputLabel>
       <TextField
@@ -86,6 +127,8 @@ export const RegisterForm = () => {
         // label="Introduzca su nombre"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.lastname && Boolean(formik.errors.lastname)}
+        helperText={formik.touched.lastname && formik.errors.lastname}
       />
       <InputLabel htmlFor="password">Correo</InputLabel>
       <TextField
@@ -97,6 +140,8 @@ export const RegisterForm = () => {
         // label="Introduzca su correo"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
       />
       <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
@@ -108,6 +153,8 @@ export const RegisterForm = () => {
         // label="Introduzca su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
       />
       <InputLabel htmlFor="password">
         Introduzca nuevamente su contraseña
@@ -121,6 +168,14 @@ export const RegisterForm = () => {
         // label="Introduzca nuevamente su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
+        error={
+          formik.touched.password_confirmation &&
+          Boolean(formik.errors.password_confirmation)
+        }
+        helperText={
+          formik.touched.password_confirmation &&
+          formik.errors.password_confirmation
+        }
       />
       <Button
         variant="contained"
