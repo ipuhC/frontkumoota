@@ -5,18 +5,12 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Divider, InputLabel, TextField } from '@mui/material'
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import styles from '../styles/formlogin.module.css'
-import  {useTranslation} from "react-i18next"
-
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 export const LoginForm = () => {
-
-  const { t } = useTranslation(['global,register,recovery'])
   const [error, setError] = useState(null)
   const router = useRouter()
   const handleSignInGmail = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -77,47 +71,44 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit} className={styles.formLogin}>
-      <InputLabel htmlFor="email">{t('register:email')}</InputLabel>
+      <InputLabel htmlFor="email">Correo</InputLabel>
       <TextField
         id="email"
         value={formik.values.email}
         type={'text'}
         fullWidth
-        placeholder={t('register:emailLabel')}
+        placeholder="Introduzca su correo"
         // label="Introduzca su correo"
         className={styles.inputsText}
         onChange={formik.handleChange}
         error={formik.touched.email && Boolean(formik.errors.email)}
         helperText={formik.touched.email && formik.errors.email}
       />
-      <InputLabel htmlFor="password">{t('register:password')}</InputLabel>
+      <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
         id="password"
         value={formik.values.password}
         type={'password'}
         fullWidth
-        placeholder={t('register:confirmPasswordLabel')}
+        placeholder="Introduzca su contraseña"
         // label="Introduzca su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
-      
+      <a href="#" className={styles.passwordLink}>
+        Recuperar Contraseña
+      </a>
       <Button
         variant="contained"
         className={styles.button}
         // endIcon={<LoginIcon />}
         type="submit"
       >
-        {t('global:loginButton')}
+        Iniciar Sesión
       </Button>
-      <Grid item xs>
-        <Link href="/recovery" variant="body2">
-          {t('recovery:forgotPassword')}
-        </Link>
-      </Grid>
-      
+      <Divider />
       <Button
         variant="outlined"
         onClick={handleSignInGmail}
@@ -130,7 +121,7 @@ export const LoginForm = () => {
           />
         }
       >
-        {t('global:googleLoginButton')}
+        Iniciar Sesión con Gmail
       </Button>
     </form>
   )

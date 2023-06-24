@@ -6,7 +6,6 @@ import { ChangeEvent, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Divider, InputLabel, TextField } from '@mui/material'
 import styles from '../styles/formlogin.module.css'
-import  {useTranslation} from "react-i18next"
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -14,9 +13,6 @@ import axios from 'axios'
 import Email from 'next-auth/providers/email'
 
 export const RegisterForm = () => {
-
-  const { t } = useTranslation(['register'])
-
   const router = useRouter()
   const registerSchema = Yup.object().shape({
     name: Yup.string().required('Este campo es requerido'),
@@ -95,65 +91,65 @@ export const RegisterForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit} className={styles.formLogin}>
-      <InputLabel htmlFor="email">{t('register:username')}</InputLabel>
+      <InputLabel htmlFor="email">Nombre de usuario</InputLabel>
       <TextField
         id="name"
         value={formik.values.name}
         type={'text'}
         fullWidth
-        placeholder={t('register:usernameLabel')}
+        placeholder="Introduzca su nombre"
         // label="Introduzca su nombre"
         className={styles.inputsText}
         onChange={formik.handleChange}
         error={formik.touched.name && Boolean(formik.errors.name)}
         helperText={formik.touched.name && formik.errors.name}
       />
-      <InputLabel htmlFor="email">{t('register:firstname')}</InputLabel>
+      <InputLabel htmlFor="email">Primer nombre</InputLabel>
       <TextField
         id="firstname"
         value={formik.values.firstname}
         type={'text'}
         fullWidth
-        placeholder={t('register:firstnameLabel')}
+        placeholder="Introduzca su nombre"
         // label="Introduzca su nombre"
         className={styles.inputsText}
         onChange={formik.handleChange}
         error={formik.touched.firstname && Boolean(formik.errors.firstname)}
         helperText={formik.touched.firstname && formik.errors.firstname}
       />
-      <InputLabel htmlFor="email">{t('register:lastname')}</InputLabel>
+      <InputLabel htmlFor="email">Apellido</InputLabel>
       <TextField
         id="lastname"
         value={formik.values.lastname}
         type={'text'}
         fullWidth
-        placeholder={t('register:lastnameLabel')}
+        placeholder="Introduzca su nombre"
         // label="Introduzca su nombre"
         className={styles.inputsText}
         onChange={formik.handleChange}
         error={formik.touched.lastname && Boolean(formik.errors.lastname)}
         helperText={formik.touched.lastname && formik.errors.lastname}
       />
-      <InputLabel htmlFor="password">{t('register:email')}</InputLabel>
+      <InputLabel htmlFor="password">Correo</InputLabel>
       <TextField
         id="email"
         value={formik.values.email}
         type={'text'}
         fullWidth
-        placeholder={t('register:emailLabel')}
+        placeholder="Introduzca su correo"
         // label="Introduzca su correo"
         className={styles.inputsText}
         onChange={formik.handleChange}
         error={formik.touched.email && Boolean(formik.errors.email)}
         helperText={formik.touched.email && formik.errors.email}
       />
-      <InputLabel htmlFor="password">{t('register:password')}</InputLabel>
+      <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
         id="password"
         value={formik.values.password}
         type={'password'}
         fullWidth
-        placeholder={t('register:passwordLabel')}
+        placeholder="Introduzca su contraseña"
         // label="Introduzca su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
@@ -161,14 +157,14 @@ export const RegisterForm = () => {
         helperText={formik.touched.password && formik.errors.password}
       />
       <InputLabel htmlFor="password">
-      {t('register:confirmPassword')}
+        Introduzca nuevamente su contraseña
       </InputLabel>
       <TextField
         id="password_confirmation"
         value={formik.values.password_confirmation}
         type={'password'}
         fullWidth
-        placeholder={t('register:confirmPasswordLabel')}
+        placeholder="Introduzca nuevamente su contraseña"
         // label="Introduzca nuevamente su contraseña"
         className={styles.inputsText}
         onChange={formik.handleChange}
@@ -187,7 +183,7 @@ export const RegisterForm = () => {
         // endIcon={<LoginIcon />}
         type="submit"
       >
-        {t('register:button')}
+        Registrarse
       </Button>
     </form>
   )

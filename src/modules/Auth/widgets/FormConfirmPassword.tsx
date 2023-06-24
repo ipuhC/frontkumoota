@@ -6,35 +6,31 @@ import { ChangeEvent, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Divider, InputLabel, TextField } from '@mui/material'
 import styles from '../styles/formlogin.module.css'
-import  {useTranslation} from "react-i18next"
-
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 export const ConfirmPassword = () => {
-  const { t } = useTranslation(['register,recovery'])
-
     return (
     <form className={styles.formLogin}>
-       <InputLabel htmlFor="password">{t('register:password')}</InputLabel>
+       <InputLabel htmlFor="password">Contraseña</InputLabel>
       <TextField
         id="password"
         type={'password'}
         fullWidth
-        placeholder={t('register:passwordLabel')}
+        placeholder="Introduzca su contraseña"
         // label="Introduzca su contraseña"
         className={styles.inputsText}
         // onChange={formik.handleChange}
       />
       <InputLabel htmlFor="password">
-      {t('register:confirmPassword')}
+        Introduzca nuevamente su contraseña
       </InputLabel>
       <TextField
         id="password_confirmation"
         type={'password'}
         fullWidth
-        placeholder={t('register:confirmPasswordLabel')}
+        placeholder="Introduzca nuevamente su contraseña"
         // label="Introduzca nuevamente su contraseña"
         className={styles.inputsText}
       />
@@ -44,7 +40,7 @@ export const ConfirmPassword = () => {
         // endIcon={<LoginIcon />}
         type="submit"
       >
-        {t('recovery:nextButton')}
+        Siguiente
       </Button>
     </form>
   )}

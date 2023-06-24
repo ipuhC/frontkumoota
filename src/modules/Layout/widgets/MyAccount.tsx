@@ -10,13 +10,10 @@ import MenuItem from '@mui/material/MenuItem'
 import { useSession, signOut, signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { SERVER_URLS } from 'config/serverUrls'
-import  {useTranslation} from "react-i18next"
-
 
 const { URL_LOGIN } = SERVER_URLS
 
 function MyAccount() {
-  const { t } = useTranslation(['navBar'])
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   )
@@ -64,10 +61,10 @@ function MyAccount() {
             onClose={handleCloseUserMenu}
           >
             <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">{t('navBar:profile')}</Typography>
+              <Typography textAlign="center">Mi perfil</Typography>
             </MenuItem>
             <MenuItem onClick={() => signOut()}>
-              <Typography textAlign="center">{t('navBar:signOff')}</Typography>
+              <Typography textAlign="center">Cerrar sesión</Typography>
             </MenuItem>
             <MenuItem>{session.user.name}</MenuItem>
           </Menu>
@@ -81,8 +78,8 @@ function MyAccount() {
               gap: '20px',
             }}
           >
-            <Link href={URL_LOGIN}>{t('navBar:login')}</Link>
-            <Link href="/register">{t('navBar:register')}</Link>
+            <Link href={URL_LOGIN}>Iniciar sesión</Link>
+            <Link href="/register">Registrarse</Link>
           </Box>
           <Box
             sx={{
@@ -92,8 +89,8 @@ function MyAccount() {
               flexDirection: 'column',
             }}
           >
-            <Link href={URL_LOGIN}>{t('navBar:login')}</Link>
-            <Link href="/register">{t('navBar:register')}</Link>
+            <Link href={URL_LOGIN}>Iniciar sesión</Link>
+            <Link href="/register">Registrarse</Link>
           </Box>
         </>
       )}
