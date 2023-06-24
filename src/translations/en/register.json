@@ -1,0 +1,16 @@
+{
+    "title":"Register in Kumoota",
+    "username":"Username",
+    "usernameLabel":"Enter your username",
+    "firstname":"First name",
+    "firstnameLabel":"Enter your first name",
+    "lastname":"Lastname",
+    "lastnameLabel":"Enter your lastname",
+    "email": "Email",
+    "emailLabel": "Enter your email",
+    "password":"Password",
+    "passwordLabel":"Enter your password",
+    "confirmPassword":"Confirm your password",
+    "confirmPasswordLabel":"Enter your pasword again",
+    "button":"Register"
+}
